@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s1.ax1x.com/2022/05/08/O1v5W9.png">
 <meta property="article:published_time" content="2022-05-08T08:05:25.000Z">
-<meta property="article:modified_time" content="2022-05-08T08:46:12.076Z">
+<meta property="article:modified_time" content="2022-05-08T08:48:08.906Z">
 <meta property="article:author" content="Mr-Lee">
 <meta property="article:tag" content="C&#x2F;C++">
 <meta property="article:tag" content="OpenGl">
@@ -54,7 +54,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2022-05-08 16:46:12'
+  postUpdate: '2022-05-08 16:48:08'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -143,7 +143,7 @@
       }
     }
     detectApple()
-    })(window)</script><meta name="generator" content="Hexo 6.1.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">3</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s1.ax1x.com/2022/05/08/O1v5W9.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">爱生活，爱编程</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">OpenGL 开发环境配置 Visual Studio + GLFW + GLAD</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-08T08:05:25.000Z" title="发表于 2022-05-08 16:05:25">2022-05-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-05-08T08:46:12.076Z" title="更新于 2022-05-08 16:46:12">2022-05-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C-C/">C/C++</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="OpenGL 开发环境配置 Visual Studio + GLFW + GLAD"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>OpenGL环境配置一般选择Win32。我们使用32位环境。</p>
+    })(window)</script><meta name="generator" content="Hexo 6.1.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">3</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s1.ax1x.com/2022/05/08/O1v5W9.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">爱生活，爱编程</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">OpenGL 开发环境配置 Visual Studio + GLFW + GLAD</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-08T08:05:25.000Z" title="发表于 2022-05-08 16:05:25">2022-05-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-05-08T08:48:08.906Z" title="更新于 2022-05-08 16:48:08">2022-05-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C-C/">C/C++</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="OpenGL 开发环境配置 Visual Studio + GLFW + GLAD"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>OpenGL环境配置一般选择Win32。我们使用32位环境。</p>
 <h2 id="搭建环境"><a href="#搭建环境" class="headerlink" title="搭建环境"></a>搭建环境</h2><p>操作系统：Windows 10</p>
 <p>编译器： Visual Studio 2019</p>
 <p>GLAD 库</p>
@@ -152,7 +152,7 @@
 <p><a target="_blank" rel="noopener" href="https://imgtu.com/i/O1L5uT"><img src="https://s1.ax1x.com/2022/05/08/O1L5uT.png" alt="O1L5uT.png"></a></p>
 <p>因为64位的总会有一些莫名奇妙的问题，这里选择32的下载。</p>
 <h3 id="Step2-下载GLAD库"><a href="#Step2-下载GLAD库" class="headerlink" title="Step2. 下载GLAD库"></a>Step2. 下载GLAD库</h3><p>GLAD的配置与大多数的开源库有些许的不同，GLAD使用了一个在线服务。在这里我们能够告诉GLAD需要定义的OpenGL版本，并且根据这个版本加载所有相关的OpenGL函数。</p>
-<p>打开GLAD的 <a href="https://link.zhihu.com/?target=https://glad.dav1d.de/">在线服务</a>.，将语言(Language)设置为C&#x2F;C++，在API选项中，选择3.3以上的OpenGL(gl)版本（我们的教程中将使用3.3版本，但更新的版本也能正常工作）。之后将模式(Profile)设置为Core，并且保证生成加载器(Generate a loader)的选项是选中的。现在可以先（暂时）忽略拓展(Extensions)中的内容。都选择完之后，点击生成(Generate)按钮来生成库文件。</p>
+<p>打开GLAD的 <a href="%5Bhttps://glad.dav1d.de%5D(https://glad.dav1d.de/)">在线服务</a>.，将语言(Language)设置为C&#x2F;C++，在API选项中，选择3.3以上的OpenGL(gl)版本（我们的教程中将使用3.3版本，但更新的版本也能正常工作）。之后将模式(Profile)设置为Core，并且保证生成加载器(Generate a loader)的选项是选中的。现在可以先（暂时）忽略拓展(Extensions)中的内容。都选择完之后，点击生成(Generate)按钮来生成库文件。</p>
 <p><a target="_blank" rel="noopener" href="https://imgtu.com/i/O1O32q"><img src="https://s1.ax1x.com/2022/05/08/O1O32q.png" alt="O1O32q.png"></a></p>
 <p>上面为一些配置项的内容。</p>
 <p><a target="_blank" rel="noopener" href="https://imgtu.com/i/O1ODR1"><img src="https://s1.ax1x.com/2022/05/08/O1ODR1.png" alt="O1ODR1.png"></a></p>
