@@ -1,0 +1,178 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>TCP入门 | 爱生活，爱编程</title><meta name="keywords" content="C/C++, Java, Android"><meta name="author" content="Mr-Lee"><meta name="copyright" content="Mr-Lee"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="TCP首部  Source Port和Destination Port:分别占用16位，表示源端口号和目的端口号；用于区别主机中的不同进程，IP地址用来区分不同主机的，源端口号和目的端口号配合上IP首部中的源IP地址就能确定为一个TCP连接 Sequenece Number: 32 位用来标识从TCP发送端向TCP接收端的数据字节流，他表示在这个报文中的第一个数据字节流在数据流中的序号；主要用来解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TCP入门">
+<meta property="og:url" content="http://example.com/2022/09/10/TCP%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:site_name" content="爱生活，爱编程">
+<meta property="og:description" content="TCP首部  Source Port和Destination Port:分别占用16位，表示源端口号和目的端口号；用于区别主机中的不同进程，IP地址用来区分不同主机的，源端口号和目的端口号配合上IP首部中的源IP地址就能确定为一个TCP连接 Sequenece Number: 32 位用来标识从TCP发送端向TCP接收端的数据字节流，他表示在这个报文中的第一个数据字节流在数据流中的序号；主要用来解">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/whale.webp">
+<meta property="article:published_time" content="2022-09-10T06:26:53.000Z">
+<meta property="article:modified_time" content="2023-01-04T13:53:48.022Z">
+<meta property="article:author" content="Mr-Lee">
+<meta property="article:tag" content="C&#x2F;C++, Java, Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/whale.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2022/09/10/TCP%E5%85%A5%E9%97%A8/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'TCP入门',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-01-04 21:53:48'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.1.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jfif" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/whale.webp')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">爱生活，爱编程</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">TCP入门</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-09-10T06:26:53.000Z" title="发表于 2022-09-10 14:26:53">2022-09-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-01-04T13:53:48.022Z" title="更新于 2023-01-04 21:53:48">2023-01-04</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="TCP入门"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="TCP首部"><a href="#TCP首部" class="headerlink" title="TCP首部"></a>TCP首部</h3><p><a target="_blank" rel="noopener" href="https://imgse.com/i/vjq2TA"><img src="https://s1.ax1x.com/2022/09/13/vjq2TA.png" alt="TCP首部"></a></p>
+<ul>
+<li>Source Port和Destination Port:分别占用16位，表示源端口号和目的端口号；用于区别主机中的不同进程，IP地址用来区分不同主机的，源端口号和目的端口号配合上IP首部中的源IP地址就能确定为一个TCP连接</li>
+<li>Sequenece Number: 32 位用来标识从TCP发送端向TCP接收端的数据字节流，他表示在这个报文中的第一个数据字节流在数据流中的序号；主要用来解决网络乱序的问题。</li>
+<li>Acknowledgment Number：32位确认序号包发送确认的一端所期望收到的下一个序号，因此，确认需要应该是上次已成功收到数据字节序号+1，不过只有当标志位中的ACK标志(下面介绍)为1时该确认序列号的字段才有效。主要用来解决不丢包的问题。</li>
+<li>Offset:该字段表示TCP所传输的数据部分应该从TCP包的哪个位置开始计算。也可以当成TCP的首部长度。字段长度4位。标记的TCP首部长度位字节。</li>
+<li>保留：4位，该字段主要为以后扩展使用。一般设置为0.</li>
+<li>TCP Flags（Control Frag）:TCP首部中有6个比特，它们总的多个可同时被设置为1，主要是用于操控TCP的状态机，依次为URG，ACK，PSH，RST，SYN，FIN。</li>
+<li>Window:窗口大小，也就是有名的滑动窗口，用来进行流量控制；这是一个复杂的问题.用于通知从相同TCP首部的确认应答号所指位置开始能够接受的数据大小。TCP不允许发送超过此处所示大小的数据。</li>
+</ul>
+<p>TCP 标志位作用</p>
+<ul>
+<li>SYN(synchronous建立联机) :表示同步序号，用来建立连接。SYN标志位和ACK标志位搭配使用，当连接请求的时候，SYN&#x3D;1，ACK&#x3D;0；连接被响应的时候，SYN&#x3D;1，ACK&#x3D;1。这个标志的数据包常常被用来进行端口扫描。扫描者发送一个只有SYN的数据包，如果对方主机响应了一个数据包回来，就表明这台主机存在这个端口，但是由于这种扫描只是进行TCP三次握手的第一次握手，因此这种扫描的成功表明被扫描的机器很不安全，一台安全的主机将会强制要求一个连接严格的进行TCP的三次握手。</li>
+<li>ACK(acknowledgement 确认):此标志表示应答域有效，就是说前面所说的TCP的应答将会包含在TCP数据包中；有两个取值：0和1，为1的时候表示应答域有效，反之为0。</li>
+<li>PSH(push传送) :这个标志位表示Push操作。所谓Push操作就是是在数据包到达接受端以后，立即传送给应用程序，而不是在缓冲区排队。</li>
+<li>FIN(finish结束)：表示发送端已经达到数据末尾，也就是说双方数据传送完成，没有数据可以传送了，发送FIN标志位的TCP数据包后，连接将断开。这个表示的数据包也经常被用于进行端口扫描。</li>
+<li>RST(reset重置) :表示连接复位请求。用来复位哪些产生错误的链接，也被用来拒绝错误和非法的数据包。</li>
+<li>URG(urgent紧急):表示TCP包的紧急指针域(后面马上就要说到)有效，用来保证TCP连接不被中断，并督促中间层设备要尽快处理这些数据。</li>
+</ul>
+<p>Sequence number(顺序号码):随机产生  Acknowledge number(确认号码)</p>
+<p><a target="_blank" rel="noopener" href="https://imgse.com/i/vjLI41"><img src="https://s1.ax1x.com/2022/09/13/vjLI41.png" alt="三次握手，四次挥手"></a></p>
+<p>1、第一次握手:建立连接，客户端先发送连接请求报文，将SYN位置为1，Sequence Number为X;然后，客户端进入SYN+SEND状态，等待服务器的确认；</p>
+<p>2、第二次握手：服务器收到SYN报文。服务器收到客户端的SYN报文，需要对这个SYN报文进行确认，设置Acknowledgment Number为x+1(Sequence+1)；同时，自己还要送法SYN消息，将SYN位置为1，Sequence Number为y；服务器将上述所有信息放到一个报文段(即SYN+ACK报文段)中，一并发送给客户端，此时服务器进入SYN+RECV状态。</p>
+<p>3、第三次握手；客户端收到服务器的  SYN+ACK报文段。然后将Acknowlegment Number设为y+1,向服务器发送ACK报文段，这个报文段发送完毕后，客户端端服务器都进入ESTABLISHED状态，完成TCP三次握手。</p>
+<p>一次三次握手实例：</p>
+<p>IP 192.168.1.116.3337 &gt; 192.168.1.123.7788: S 3626544836<br> 第一次握手：192.168.1.116发送位码syn＝1,随机产生seq number&#x3D;3626544836的数据包到192.168.1.123,由SYN&#x3D;1知道192.168.1.116要求建立联机;</p>
+<p>IP 192.168.1.123.7788 &gt; 192.168.1.116.3337: S 1739326486: ack 3626544837<br> 第二次握手：192.168.1.123收到请求后要确认联机信息，向192.168.1.116发送ack number&#x3D;3626544837,syn&#x3D;1,ack&#x3D;1,随机产生seq&#x3D;1739326486的包;</p>
+<p>IP 192.168.1.116.3337 &gt; 192.168.1.123.7788: ack 1739326487,ack 1<br> 第三次握手：192.168.1.116收到后检查ack number是否正确，即第一次发送的seq number+1,以及位码ack是否为1，若正确，192.168.1.116会再发送ack number&#x3D;1739326487,ack&#x3D;1，192.168.1.123收到后确认seq&#x3D;seq+1,ack&#x3D;1则连接建立成功。</p>
+<p>四次挥手</p>
+<p>1、客户端(也可以是服务器)，设置Sequence Number和Acknowledgment Number，向服务器发送一个FIN报文段。此时客户端进入FIN_WAIT_1状态；这表示客户端没有数据发送给主机了。</p>
+<p>2、服务器收到客户端发来的FIN报文段，向客户端回一个ACK报文段，Acknowledgement Number为Sequence Number加1；客户端进入FIN_WAIT_2状态，服务器进入CLOSE_WAIT状态；服务器告诉客户端，我同意你的”关闭”请求。</p>
+<p>3、服务器向客户端发送FIN报文段，请求关闭连接，同时服务器进入LAST_ACK状态。</p>
+<p>4、客户端收到服务器发送的FIN报文段，向主机发送ACK报文段，然后客户端进入TIME_WAIT状态，服务器收到客户端的ACK报文段以后，就关闭连接，此时，客户端等待2MSL后一次没有到收到回复，则证明Server端已正常关闭，那好，客户端也可以关闭连接了。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Mr-Lee</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2022/09/10/TCP%E5%85%A5%E9%97%A8/">http://example.com/2022/09/10/TCP%E5%85%A5%E9%97%A8/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">爱生活，爱编程</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/whale.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/01/04/QT%E5%85%A5%E9%97%A8/"><img class="prev-cover" src="/img/whale.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Qt入门</div></div></a></div><div class="next-post pull-right"><a href="/2022/09/05/ffmpeg-sdl%E6%92%AD%E6%94%BE%E8%A7%86%E9%A2%91%E4%BB%A3%E7%A0%81/"><img class="next-cover" src="https://s1.ax1x.com/2022/09/05/v7Z43R.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">ffmpeg+sdl播放视频代码</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jfif" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Mr-Lee</div><div class="author-info__description">C/C++, Java, Android</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Mr-Luowan"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">有问题可以加作者微信，欢迎交流：13675173459</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP%E9%A6%96%E9%83%A8"><span class="toc-number">1.</span> <span class="toc-text">TCP首部</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/01/04/%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/" title="面试相关"><img src="/img/whale.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="面试相关"/></a><div class="content"><a class="title" href="/2023/01/04/%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/" title="面试相关">面试相关</a><time datetime="2023-01-04T14:00:15.000Z" title="发表于 2023-01-04 22:00:15">2023-01-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/04/QT%E5%85%A5%E9%97%A8/" title="Qt入门"><img src="/img/whale.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Qt入门"/></a><div class="content"><a class="title" href="/2023/01/04/QT%E5%85%A5%E9%97%A8/" title="Qt入门">Qt入门</a><time datetime="2023-01-04T13:58:35.000Z" title="发表于 2023-01-04 21:58:35">2023-01-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/10/TCP%E5%85%A5%E9%97%A8/" title="TCP入门"><img src="/img/whale.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TCP入门"/></a><div class="content"><a class="title" href="/2022/09/10/TCP%E5%85%A5%E9%97%A8/" title="TCP入门">TCP入门</a><time datetime="2022-09-10T06:26:53.000Z" title="发表于 2022-09-10 14:26:53">2022-09-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/05/ffmpeg-sdl%E6%92%AD%E6%94%BE%E8%A7%86%E9%A2%91%E4%BB%A3%E7%A0%81/" title="ffmpeg+sdl播放视频代码"><img src="https://s1.ax1x.com/2022/09/05/v7Z43R.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ffmpeg+sdl播放视频代码"/></a><div class="content"><a class="title" href="/2022/09/05/ffmpeg-sdl%E6%92%AD%E6%94%BE%E8%A7%86%E9%A2%91%E4%BB%A3%E7%A0%81/" title="ffmpeg+sdl播放视频代码">ffmpeg+sdl播放视频代码</a><time datetime="2022-09-05T14:33:24.000Z" title="发表于 2022-09-05 22:33:24">2022-09-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/03/C++%E5%85%A5%E9%97%A8/" title="C++入门"><img src="https://s1.ax1x.com/2022/09/04/vTKqPg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C++入门"/></a><div class="content"><a class="title" href="/2022/09/03/C++%E5%85%A5%E9%97%A8/" title="C++入门">C++入门</a><time datetime="2022-09-03T01:09:06.000Z" title="发表于 2022-09-03 09:09:06">2022-09-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Mr-Lee</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
